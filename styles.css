@@ -24,7 +24,8 @@ figure .image img {
 }
 
 .title .icon {
-  margin-left: 15px;
+  display: inline-block;
+  margin-left: 100px;
 }
 
 .hero {
