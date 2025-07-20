@@ -31,6 +31,10 @@ const resultsWrapper = document.querySelector(".results");
 const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
 
+  if (!movies.length) {
+    dropdown.classList.remove("is-active");
+  }
+
   //allows user to view results of other movies for different titles
   resultsWrapper.innerHTML = ``;
 
@@ -45,6 +49,12 @@ const onInput = async (event) => {
     <img src="${movie.Poster}" onerror="this.src="" " />
     ${movie.Title}
     `;
+
+    //if user selects a movie the dropdown will close and the input search will show the title of the movie selected
+    selection.addEventListener("click", () => {
+      dropdown.classList.remove("is-active");
+      input.value = movie.Title;
+    });
 
     //render movies by selecting div with ID of 'target' and appending div variable as a child
     resultsWrapper.appendChild(selection);
