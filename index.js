@@ -9,7 +9,7 @@ const fetchData = async (searchTerm) => {
   console.log(response.data);
 };
 
-const debounce = (func) => {
+const debounce = (func, delay = 1000) => {
   let timeOutId;
   return (...args) => {
     //clear Id number for setTimeout
@@ -20,7 +20,7 @@ const debounce = (func) => {
     //runs everytime user presses a key in input and calls new Id for setTimeout
     timeOutId = setTimeout(() => {
       func.apply(null, args);
-    }, 1000);
+    }, delay);
   };
 };
 
@@ -29,4 +29,4 @@ const onInput = (event) => {
   fetchData(event.target.value);
 };
 
-input.addEventListener("input", debounce(onInput));
+input.addEventListener("input", debounce(onInput, 2000));
