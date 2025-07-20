@@ -9,18 +9,24 @@ const fetchData = async (searchTerm) => {
   console.log(response.data);
 };
 
-let timeOutId;
-const input = document.querySelector("input");
-const onInput = (event) => {
-  //clear Id number for setTimeout
-  if (timeOutId) {
-    clearTimeout(timeOutId);
-  }
+const debounce = (func) => {
+  let timeOutId;
+  return (...args) => {
+    //clear Id number for setTimeout
+    if (timeOutId) {
+      clearTimeout(timeOutId);
+    }
 
-  //runs everytime user presses a key in input and calls new Id for setTimeout
-  timeOutId = setTimeout(() => {
-    fetchData(event.target.value);
-  }, 1000);
+    //runs everytime user presses a key in input and calls new Id for setTimeout
+    timeOutId = setTimeout(() => {
+      func.apply(null, args);
+    }, 1000);
+  };
 };
 
-input.addEventListener("input", onInput);
+const input = document.querySelector("input");
+const onInput = (event) => {
+  fetchData(event.target.value);
+};
+
+input.addEventListener("input", debounce(onInput));
