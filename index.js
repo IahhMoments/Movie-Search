@@ -31,16 +31,18 @@ const resultsWrapper = document.querySelector(".results");
 const onInput = async (event) => {
   const movies = await fetchData(event.target.value);
 
+  //allows user to view results of other movies for different titles
   resultsWrapper.innerHTML = ``;
+
+  //when user types in input, it adds the class 'is-active'
   dropdown.classList.add("is-active");
   for (let movie of movies) {
     const selection = document.createElement("a");
-    const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
 
     //content of how the movies are going to be rendered
     selection.classList.add("dropdown-item");
     selection.innerHTML = `
-    <img src="${imgSrc}" />
+    <img src="${movie.Poster}" onerror="this.src="" " />
     ${movie.Title}
     `;
 
@@ -50,3 +52,10 @@ const onInput = async (event) => {
 };
 
 input.addEventListener("input", debounce(onInput, 500));
+
+//if user clicks outside of dropdown menu it will close
+document.addEventListener("click", (event) => {
+  if (!root.contains(event.target)) {
+    dropdown.classList.remove("is-active");
+  }
+});
