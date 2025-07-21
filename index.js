@@ -71,7 +71,6 @@ document.addEventListener("click", (event) => {
   }
 });
 
-//return detailed data of the movie selected
 const onMovieSelect = async (movie) => {
   const response = await axios.get("http://www.omdbapi.com/", {
     params: {
@@ -83,6 +82,7 @@ const onMovieSelect = async (movie) => {
   document.querySelector("#summary").innerHTML = movieTemplate(response.data);
 };
 
+//render SELECTED movie details
 const movieTemplate = (moveiDetail) => {
   return `
     <article class="media">
@@ -98,6 +98,26 @@ const movieTemplate = (moveiDetail) => {
           <p>${moveiDetail.Plot}</p>
         </div>
       </div>
+    </article>
+    <article class="notification is-primary">
+      <p class="title">${moveiDetail.Awards}</p>
+      <p class="subtitle">Awards</p>
+    </article>
+    <article class="notification is-primary">
+      <p class="title">${moveiDetail.BoxOffice}</p>
+      <p class="subtitle">Box Office</p>
+    </article>
+    <article class="notification is-primary">
+      <p class="title">${moveiDetail.Metascore}</p>
+      <p class="subtitle">Metascore</p>
+    </article>
+    <article class="notification is-primary">
+      <p class="title">${moveiDetail.imdbRating}</p>
+      <p class="subtitle">IMDB Rating</p>
+    </article>
+    <article class="notification is-primary">
+      <p class="title">${moveiDetail.imdbVotes}</p>
+      <p class="subtitle">IMDB Votes</p>
     </article>
   `;
 };
