@@ -80,6 +80,24 @@ const onMovieSelect = async (movie) => {
     },
   });
 
-  console.log(response.data);
-  return response.data;
+  document.querySelector("#summary").innerHTML = movieTemplate(response.data);
+};
+
+const movieTemplate = (moveiDetail) => {
+  return `
+    <article class="media">
+      <figure class="media-left">
+        <p class="image">
+          <img src="${moveiDetail.Poster}" />
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <h1>${moveiDetail.Title}</h1>
+          <h4>${moveiDetail.Genre}</h4>
+          <p>${moveiDetail.Plot}</p>
+        </div>
+      </div>
+    </article>
+  `;
 };
