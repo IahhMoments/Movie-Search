@@ -32,7 +32,7 @@ const createAutoComplete = ({ root }) => {
       //content of how the movies are going to be rendered
       selection.classList.add("dropdown-item");
       selection.innerHTML = `
-    <img src="${movie.Poster}" onerror="this.src="" " />
+    <img src="${movie.Poster}" onerror="this.src=''" />
     ${movie.Title}
     `;
 
