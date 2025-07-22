@@ -34,6 +34,15 @@ createAutoComplete({
     ${movie.Title}
     `;
   },
+
+  //if user selects a movie the dropdown will close and the input search will show the title of the movie selected (REFACTORED)
+  onOptionSelect(movie) {
+    onMovieSelect(movie);
+  },
+
+  inputValue(movie) {
+    return movie.Title;
+  },
 });
 
 //render SELECTED movie details

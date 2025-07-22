@@ -1,4 +1,9 @@
-const createAutoComplete = ({ root, renderOption }) => {
+const createAutoComplete = ({
+  root,
+  renderOption,
+  onOptionSelect,
+  inputValue,
+}) => {
   root.innerHTML = `
   <label for="movieSearchInput"><b>Search For a Movie</b></label>
   <input id="movieSearchInput" class="input" />
@@ -36,8 +41,8 @@ const createAutoComplete = ({ root, renderOption }) => {
       //if user selects a movie the dropdown will close and the input search will show the title of the movie selected
       selection.addEventListener("click", () => {
         dropdown.classList.remove("is-active");
-        input.value = movie.Title;
-        onMovieSelect(movie);
+        input.value = inputValue(movie);
+        onOptionSelect(movie);
       });
 
       //render movies by selecting div with ID of 'target' and appending div variable as a child
