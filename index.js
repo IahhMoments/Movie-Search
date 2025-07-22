@@ -26,6 +26,14 @@ const onMovieSelect = async (movie) => {
 
 createAutoComplete({
   root: document.querySelector(".autocomplete"),
+
+  //content of how the movies are going to be rendered (REFACTORED)
+  renderOption(movie) {
+    return `
+    <img src="${movie.Poster}" onerror="this.src=''" />
+    ${movie.Title}
+    `;
+  },
 });
 
 //render SELECTED movie details
