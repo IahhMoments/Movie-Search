@@ -1,17 +1,10 @@
-createAutoComplete({
-  root: document.querySelector(".autocomplete"),
-
+const autoCompleteConfig = {
   //content of how the movies are going to be rendered (REFACTORED)
   renderOption(movie) {
     return `
     <img src="${movie.Poster}" onerror="this.src=''" />
     ${movie.Title}
     `;
-  },
-
-  //if user selects a movie the dropdown will close and the input search will show the title of the movie selected (REFACTORED)
-  onOptionSelect(movie) {
-    onMovieSelect(movie);
   },
 
   inputValue(movie) {
@@ -32,9 +25,29 @@ createAutoComplete({
 
     return response.data.Search;
   },
+};
+
+//left side widget
+createAutoComplete({
+  ...autoCompleteConfig,
+  root: document.querySelector("#left-autocomplete"),
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#left-summary"));
+  },
 });
 
-const onMovieSelect = async (movie) => {
+//right side widget
+createAutoComplete({
+  ...autoCompleteConfig,
+  root: document.querySelector("#right-autocomplete"),
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#right-summary"));
+  },
+});
+
+const onMovieSelect = async (movie, summaryElement) => {
   const response = await axios.get("http://www.omdbapi.com/", {
     params: {
       apikey: "7d63908",
@@ -42,7 +55,7 @@ const onMovieSelect = async (movie) => {
     },
   });
 
-  document.querySelector("#summary").innerHTML = movieTemplate(response.data);
+  summaryElement.innerHTML = movieTemplate(response.data);
 };
 
 //render SELECTED movie details
