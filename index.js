@@ -1,14 +1,3 @@
-const onMovieSelect = async (movie) => {
-  const response = await axios.get("http://www.omdbapi.com/", {
-    params: {
-      apikey: "7d63908",
-      i: movie.imdbID,
-    },
-  });
-
-  document.querySelector("#summary").innerHTML = movieTemplate(response.data);
-};
-
 createAutoComplete({
   root: document.querySelector(".autocomplete"),
 
@@ -44,6 +33,17 @@ createAutoComplete({
     return response.data.Search;
   },
 });
+
+const onMovieSelect = async (movie) => {
+  const response = await axios.get("http://www.omdbapi.com/", {
+    params: {
+      apikey: "7d63908",
+      i: movie.imdbID,
+    },
+  });
+
+  document.querySelector("#summary").innerHTML = movieTemplate(response.data);
+};
 
 //render SELECTED movie details
 const movieTemplate = (moveiDetail) => {
